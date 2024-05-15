@@ -18,7 +18,7 @@ export default function Home() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 md:mt-12 w-full max-w-5xl">
         <Link
           className="group bg-white rounded-lg shadow-lg overflow-hidden transition-all hover:scale-[1.02] hover:shadow-xl dark:bg-gray-950"
-          href="#"
+          href="/meyve"
         >
           <div className="aspect-square flex flex-col items-center justify-center p-8 space-y-4">
             <AppleIcon className="w-12 h-12 text-gray-900 group-hover:text-gray-700 dark:text-gray-50 dark:group-hover:text-gray-300" />

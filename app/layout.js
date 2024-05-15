@@ -1,6 +1,7 @@
 import { Chivo } from "next/font/google";
 import "./globals.css";
 import BackToTopButton from "./_components/ScrollToTop";
+import { Toaster } from "@/components/ui/toaster";
 
 const chivo = Chivo({
   subsets: ["latin"],
@@ -17,7 +18,10 @@ export default function RootLayout({ children }) {
     <>
       <html lang="en">
         <BackToTopButton />
-        <body className={chivo.variable}>{children}</body>
+        <body className={chivo.variable}>
+          {children}
+          <Toaster />
+        </body>
       </html>
     </>
   );
