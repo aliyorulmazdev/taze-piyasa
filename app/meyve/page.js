@@ -33,6 +33,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useToast } from "@/components/ui/use-toast";
+import FeatureCard from "../_components/ProfileCard";
 export default function Meyve() {
   const [meyveData, setMeyveData] = useState([]);
   const [date, setDate] = React.useState(startOfDay(new Date()));
@@ -180,6 +181,11 @@ export default function Meyve() {
               <Button className="w-full" variant="default">
                 Filtrele
               </Button>
+              <div class="hidden md:flex justify-center pt-10">
+                <div class="inline-block">
+                  <FeatureCard />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -274,16 +280,16 @@ export default function Meyve() {
                             (item) => item.MalAdi === meyve.MalAdi
                           ).OrtalamaUcret ? (
                             <>
-                            <Label>Fiyatı Artmış</Label>
-                            <FaArrowUp className="text-red-500 dark:text-red-400 size-10" />
+                              <Label>Fiyatı Artmış</Label>
+                              <FaArrowUp className="text-red-500 dark:text-red-400 size-10" />
                             </>
                           ) : meyve.OrtalamaUcret <
                             filteredPreviousMeyveData.find(
                               (item) => item.MalAdi === meyve.MalAdi
                             ).OrtalamaUcret ? (
-                              <>
-                            <FaArrowDown className="text-green-500 dark:text-green-400 size-10" />
-                            <Label>Fiyatı Düşmüş</Label>
+                            <>
+                              <FaArrowDown className="text-green-500 dark:text-green-400 size-10" />
+                              <Label>Fiyatı Düşmüş</Label>
                             </>
                           ) : (
                             <FaMinus className="text-white dark:text-gray-400 size-10" />

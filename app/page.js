@@ -12,7 +12,7 @@ export default function Home() {
           eriştiğim fiyatları anında ve erişilebilir bir şekilde sergileyen
           projemi keşfedin. Next.js ile geliştirdiğim bu platformda, taze
           meyve, sebze ve ithal ürün fiyatlarını kolayca görüntüleyebilir,
-          karşılaştırabilir ve takip edebilirsiniz.
+          artış ve azalış seviyelerini takip edebilirsiniz.
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 md:mt-12 w-full max-w-5xl">
@@ -21,12 +21,12 @@ export default function Home() {
           href="/meyve"
         >
           <div className="aspect-square flex flex-col items-center justify-center p-8 space-y-4">
-            <AppleIcon className="w-12 h-12 text-gray-900 group-hover:text-gray-700 dark:text-gray-50 dark:group-hover:text-gray-300" />
+            <AppleIcon className="w-12 h-12 text-gray-900 group-hover:text-red-700 dark:text-gray-50 dark:group-hover:text-gray-300" />
             <h2 className="text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-700 dark:text-gray-50 dark:group-hover:text-gray-300">
               Meyve
             </h2>
             <p className="text-gray-500 group-hover:text-gray-600 dark:text-gray-400 dark:group-hover:text-gray-300">
-              Browse our selection of fresh fruits.
+              Birbirinden taze meyveler..
             </p>
           </div>
         </Link>
@@ -40,7 +40,7 @@ export default function Home() {
               Sebze
             </h2>
             <p className="text-gray-500 group-hover:text-gray-600 dark:text-gray-400 dark:group-hover:text-gray-300">
-              Discover our selection of fresh vegetables.
+              Not Yet.
             </p>
           </div>
         </Link>
@@ -54,7 +54,7 @@ export default function Home() {
               İthal
             </h2>
             <p className="text-gray-500 group-hover:text-gray-600 dark:text-gray-400 dark:group-hover:text-gray-300">
-              Explore our selection of imported goods.
+              Not Yet.
             </p>
           </div>
         </Link>
