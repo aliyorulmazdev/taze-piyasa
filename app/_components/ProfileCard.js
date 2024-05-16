@@ -59,11 +59,11 @@ export default function FeatureCard() {
         </div>
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mt-4">
           <CalendarDaysIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-          <Label>Updated on 2024-05-15</Label>
+          <Label>Updated on 2024-05-17</Label>
         </div>
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mt-4">
           <StarIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-          <Label>Latest Feat: Profile Card on left section.</Label>
+          <Label>Latest Feat: Product photos colorized, price icon sizes decreased.</Label>
         </div>
       </CardContent>
     </Card>

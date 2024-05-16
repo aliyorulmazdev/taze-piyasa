@@ -23,7 +23,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import GrayscaleImage from "../_components/GrayscaleImage";
 import {
   Sheet,
   SheetContent,
@@ -34,6 +33,7 @@ import {
 } from "@/components/ui/sheet";
 import { useToast } from "@/components/ui/use-toast";
 import FeatureCard from "../_components/ProfileCard";
+import ZoomImage from "../_components/ZoomImage";
 export default function Meyve() {
   const [meyveData, setMeyveData] = useState([]);
   const [date, setDate] = React.useState(startOfDay(new Date()));
@@ -281,24 +281,24 @@ export default function Meyve() {
                           ).OrtalamaUcret ? (
                             <>
                               <Label>Fiyatı Artmış</Label>
-                              <FaArrowUp className="text-red-500 dark:text-red-400 size-10" />
+                              <FaArrowUp className="text-red-500 dark:text-red-400 size-6" />
                             </>
                           ) : meyve.OrtalamaUcret <
                             filteredPreviousMeyveData.find(
                               (item) => item.MalAdi === meyve.MalAdi
                             ).OrtalamaUcret ? (
                             <>
-                              <FaArrowDown className="text-green-500 dark:text-green-400 size-10" />
+                              <FaArrowDown className="text-green-500 dark:text-green-400 size-6" />
                               <Label>Fiyatı Düşmüş</Label>
                             </>
                           ) : (
-                            <FaMinus className="text-white dark:text-gray-400 size-10" />
+                            <FaMinus className="text-white dark:text-gray-400 size-6" />
                           )}
                         </>
                       ) : null}
                     </div>
-                    <div>
-                      <GrayscaleImage
+                    <div className="">
+                      <ZoomImage
                         alt={meyve.MalAdi}
                         className="w-full aspect-square object-cover rounded-lg"
                         height={256}

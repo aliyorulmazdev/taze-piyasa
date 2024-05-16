@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-const GrayscaleImage = ({ src, alt, className, width, height }) => {
+const ZoomImage = ({ src, alt, className, width, height }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -13,7 +13,7 @@ const GrayscaleImage = ({ src, alt, className, width, height }) => {
   };
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden shadow-lg stroke-transparent">
       <Image
         alt={alt}
         className={`w-full h-full ${className}`}
@@ -23,12 +23,12 @@ const GrayscaleImage = ({ src, alt, className, width, height }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{
-          filter: isHovered ? "none" : "grayscale(100%)",
-          transition: "filter 0.5s ease-in-out",
+          transform: isHovered ? "scale(1.1)" : "scale(1)",
+          transition: "transform 0.5s ease-in-out",
         }}
       />
     </div>
   );
 };
 
-export default GrayscaleImage;
+export default ZoomImage;
