@@ -30,8 +30,8 @@ export default async function handler(req, res) {
                             await sendEmail(row.mailAdresi);
                             // İlgili veritabanı satırını silme işlemi
                             await prisma.PriceReminder.delete({ where: { id: row.id } });
-                            // 2 saniye bekleme
-                            await delay(2000);
+                            // .600 bekleme
+                            await delay(600);
                         }
                     }
                 }
