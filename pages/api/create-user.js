@@ -4,17 +4,17 @@ export default async function handler(req, res) {
   // POST isteği olup olmadığını kontrol etme
   if (req.method === 'POST') {
     // İstekten verileri alma
-    const { ad_soyad, mail_adresi, urun_adi, fiyat_tipi, istenen_fiyat, send_mail } = req.body;
+    const { adSoyad, mailAdresi, urunAdi, fiyatTipi, istenenFiyat, sendMail } = req.body;
     try {
       // Veritabanına yeni kayıt ekleme
       await prisma.priceReminder.create({
         data: {
-          ad_soyad,
-          mail_adresi,
-          urun_adi,
-          fiyat_tipi,
-          istenen_fiyat,
-          send_mail
+          adSoyad,
+          mailAdresi,
+          urunAdi,
+          fiyatTipi,
+          istenenFiyat,
+          sendMail
         }
       });
 
