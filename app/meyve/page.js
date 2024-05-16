@@ -2,15 +2,6 @@
 import axios from "axios";
 import * as React from "react";
 import { Label } from "@/components/ui/label";
-import { FaShare, FaArrowUp, FaArrowDown, FaMinus } from "react-icons/fa";
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectItem,
-  SelectContent,
-  Select,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { format, startOfDay } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
@@ -23,17 +14,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { useToast } from "@/components/ui/use-toast";
-import FeatureCard from "../_components/ProfileCard";
-import ZoomImage from "../_components/ZoomImage";
+import Sidebar from "../_components/Sidebar";
+import SortDropdown from "../_components/SortDropdown";
+import SingleProduct from "../_components/SingleProduct.js";
 export default function Meyve() {
   const [meyveData, setMeyveData] = useState([]);
   const [date, setDate] = React.useState(startOfDay(new Date()));
@@ -155,40 +139,11 @@ export default function Meyve() {
     <>
       <main className="flex flex-col md:flex-row w-full min-h-[100dvh]">
         {/* Sidebar */}
-        <div className="bg-white dark:bg-gray-950 w-full md:w-1/3 lg:w-1/4 p-6 border-r border-gray-200 dark:border-gray-800 md:block md:sticky top-0">
-          <div className="space-y-6 p-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
-                Filtrele
-              </h2>
-              <Button size="sm" variant="outline" onClick={handleResetFilters}>
-                Temizle
-              </Button>
-            </div>
-            <div className="grid gap-4">
-              <div>
-                <Label className="text-base" htmlFor="name">
-                  Adı
-                </Label>
-                <Input
-                  id="name"
-                  placeholder="Buraya yazın."
-                  type="text"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                />
-              </div>
-              <Button className="w-full" variant="default">
-                Filtrele
-              </Button>
-              <div class="hidden md:flex justify-center pt-10">
-                <div class="inline-block">
-                  <FeatureCard />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Sidebar
+          searchQuery={searchQuery}
+          handleSearchChange={handleSearchChange}
+          handleResetFilters={handleResetFilters}
+        />
         {/* Main content */}
         <div className="flex-1 bg-gray-100 dark:bg-gray-900 p-6 ">
           <div className="max-w-5xl mx-auto">
@@ -218,32 +173,8 @@ export default function Meyve() {
                   />
                 </PopoverContent>
               </Popover>
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="hidden md:block">
-                    <Label className="text-base">Sırala</Label>
-                  </div>
-                  <Select
-                    defaultValue="name-asc"
-                    id="sort"
-                    onValueChange={handleSortChange}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Name (A-Z)" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="name-asc">Ad (A-Z)</SelectItem>
-                      <SelectItem value="name-desc">Ad (Z-A)</SelectItem>
-                      <SelectItem value="price-asc">
-                        Fiyat (Düşükten Yükseğe)
-                      </SelectItem>
-                      <SelectItem value="price-desc">
-                        Fiyat (Yüksekten Düşüğe)
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+              {/* SortDropDown */}
+              <SortDropdown handleSortChange={handleSortChange} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
               {loading ? (
@@ -268,128 +199,15 @@ export default function Meyve() {
                 </div>
               ) : (
                 filteredMeyveData.map((meyve) => (
-                  <div
-                    className="bg-white dark:bg-gray-950 rounded-lg shadow-lg overflow-hidden transition-all hover:scale-[1.02] hover:shadow-xl p-4 flex flex-col gap-2"
+                  <SingleProduct
                     key={meyve.MalAdi}
-                  >
-                    <div className="flex items-center justify-end gap-1">
-                      {filteredPreviousMeyveData.length > 0 ? (
-                        <>
-                          {meyve.OrtalamaUcret >
-                          filteredPreviousMeyveData.find(
-                            (item) => item.MalAdi === meyve.MalAdi
-                          ).OrtalamaUcret ? (
-                            <>
-                              <Label>Fiyatı Artmış</Label>
-                              <FaArrowUp className="text-red-500 dark:text-red-400 size-6" />
-                            </>
-                          ) : meyve.OrtalamaUcret <
-                            filteredPreviousMeyveData.find(
-                              (item) => item.MalAdi === meyve.MalAdi
-                            ).OrtalamaUcret ? (
-                            <>
-                              <FaArrowDown className="text-green-500 dark:text-green-400 size-6" />
-                              <Label>Fiyatı Düşmüş</Label>
-                            </>
-                          ) : (
-                            <FaMinus className="text-white dark:text-gray-400 size-6" />
-                          )}
-                        </>
-                      ) : null}
-                    </div>
-                    <div className="">
-                      <ZoomImage
-                        alt={meyve.MalAdi}
-                        className="w-full aspect-square object-cover rounded-lg"
-                        height={256}
-                        src={`/images/${meyve.MalAdi.replace(
-                          /\s+/g,
-                          ""
-                        ).toLowerCase()}.png`}
-                        width={256}
-                      />
-                    </div>
-                    <h3 className="text-lg font-semibold pt-3">
-                      {meyve.MalAdi}
-                    </h3>
-                    <div className="flex items-center justify-between">
-                      <div className="text-gray-500 dark:text-gray-400">
-                        <Label className="font-medium">Ürün Tipi: </Label>
-                        {meyve.MalTipAdi}
-                      </div>
-                      <div className="text-gray-500 dark:text-gray-400">
-                        <Label className="font-medium">Birimi: </Label>
-                        {meyve.Birim}
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="text-gray-500 dark:text-gray-400">
-                        <Label className="font-medium">En Düşük: </Label>₺
-                        {meyve.AsgariUcret}
-                      </div>
-                      <div className="text-gray-500 dark:text-gray-400">
-                        <Label className="font-medium">En Yüksek: </Label>₺
-                        {meyve.AzamiUcret}
-                      </div>
-                    </div>
-                    <div className="text-gray-500 dark:text-gray-400">
-                      <Label className="font-medium">Ortalama Ücret: </Label>₺
-                      {meyve.OrtalamaUcret}
-                    </div>
-                    <Sheet>
-                      <SheetTrigger asChild>
-                        <Button
-                          className="flex items-center w-full"
-                          variant="outline"
-                        >
-                          <FaShare className="mr-2" /> Paylaş
-                        </Button>
-                      </SheetTrigger>
-                      <SheetContent>
-                        <SheetHeader>
-                          <SheetTitle>Paylaşım Bilgileri</SheetTitle>
-                          <SheetDescription>
-                            <textarea
-                              className="w-full h-32 border p-2"
-                              defaultValue={`Hey, ${format(
-                                date,
-                                "dd.MM.yyyy"
-                              )} günü için ${meyve.MalAdi} ürününün ${
-                                meyve.Birim
-                              } biriminde ortalama fiyatı ₺${
-                                meyve.OrtalamaUcret
-                              }. En az ₺${
-                                meyve.AsgariUcret
-                              } ücretinden, en fazla ise ₺${
-                                meyve.AzamiUcret
-                              } ücretinden satış görüyor.`}
-                            />
-                          </SheetDescription>
-                        </SheetHeader>
-                        <Button
-                          className="w-full mt-4"
-                          onClick={() =>
-                            handleCopyText(
-                              `Hey, ${format(
-                                date,
-                                "dd.MM.yyyy"
-                              )} günü için Armut(${meyve.MalAdi}) ürününün ${
-                                meyve.Birim
-                              } i başına ortalama fiyatı ${
-                                meyve.OrtalamaUcret
-                              }. En az ${
-                                meyve.AsgariUcret
-                              } ücretinden, en fazla ise ${
-                                meyve.AzamiUcret
-                              } ücretinden satış görüyor.`
-                            )
-                          }
-                        >
-                          Yazıyı Kopyala
-                        </Button>
-                      </SheetContent>
-                    </Sheet>
-                  </div>
+                    meyve={meyve}
+                    previousMeyve={filteredPreviousMeyveData.find(
+                      (item) => item.MalAdi === meyve.MalAdi
+                    )}
+                    date={date}
+                    handleCopyText={handleCopyText}
+                  />
                 ))
               )}
             </div>
