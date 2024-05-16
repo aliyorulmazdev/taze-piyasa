@@ -1,15 +1,8 @@
 {
-    "version": 2,
-    "builds": [
-      { "src": "api/checker.js", "use": "@vercel/node" }
-    ],
-    "routes": [
+    "crons": [
       {
-        "src": "/api/checker",
-        "methods": ["GET"],
-        "dest": ".vercel/functions/checker"
+        "path": "/api/checker",
+        "schedule": "0 5 * * *"
       }
-    ],
-    "cron": "0 * * * *"
+    ]
   }
-  
