@@ -14,25 +14,27 @@ export default async function handler(req, res) {
             const response = await axios.get(`https://openapi.izmir.bel.tr/api/ibb/halfiyatlari/sebzemeyve/${formattedDate}`);
             const data = response.data;
 
-            const reminders = await prisma.priceReminder.findMany();
+            const reminders = await prisma.PriceReminder.findMany();
 
             for (const row of reminders) {
+                console.log(row)
                 for (const item of data.HalFiyatListesi) {
+                    console.log(item.MalAdi)
                     if (item.MalAdi === row.urun_adi) {
                         let price;
-                        if (row.fiyat_tipi === 'Average') {
+                        if (row.fiyatTipi === 'Average') {
                             price = item.OrtalamaUcret;
-                        } else if (row.fiyat_tipi === 'Maximum') {
+                        } else if (row.fiyatTipi === 'Maximum') {
                             price = item.AzamiUcret;
-                        } else if (row.fiyat_tipi === 'Minimum') {
+                        } else if (row.fiyatTipi === 'Minimum') {
                             price = item.AsgariUcret;
                         }
 
-                        console.log(`${row.ad_soyad} - Ürün - ${row.urun_adi} - İstenen Fiyat - ${row.istenen_fiyat} - ${row.fiyat_tipi} - CurrentPrice: ${price}`);
-                        if (price <= row.istenen_fiyat) {
+                        console.log(`${row.adSoyad} - Ürün - ${row.urunAdi} - İstenen Fiyat - ${row.istenenFiyat} - ${row.fiyatTipi} - CurrentPrice: ${price}`);
+                        if (price <= row.istenenFiyat) {
                             // E-posta gönderimi
-                            await sendEmail(row.mail_adresi);
-                            console.log(`${row.ad_soyad} için eposta gönderildi.`);
+                            await sendEmail(row.mailAdresi);
+                            console.log(`${row.adSoyad} için eposta gönderildi.`);
                             // İlgili veritabanı satırını silme işlemi
                             await prisma.priceReminder.delete({ where: { id: row.id } });
                         }
