@@ -17,7 +17,7 @@ export default async function handler(req, res) {
             const reminders = await prisma.PriceReminder.findMany();
 
             for (const row of reminders) {
-                console.log(row)
+                // console.log(row)
                 for (const item of data.HalFiyatListesi) {
                     // console.log(item.MalAdi)
                     if (item.MalAdi === row.urunAdi) {
