@@ -10,17 +10,20 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("POSTGRES_URL") // uses connection pooling
+  url      = env("POSTGRES_URL")
 }
 
 model PriceReminder {
-  id               Int       @id @default(autoincrement())
-  ad_soyad         String
-  mail_adresi      String
-  urun_adi         String
-  fiyat_tipi       String
-  istenen_fiyat    Float
-  created_date     DateTime  @default(now())
-  last_check_date  DateTime?
-  send_mail        Boolean   @default(false)
+  id              Int      @id @default(autoincrement())
+  adSoyad         String
+  mailAdresi      String
+  urunAdi         String
+  fiyatTipi       String
+  istenenFiyat    Float
+  createdDate     DateTime @default(now())
+  lastCheckDate   DateTime?
+  sendMail        Boolean  @default(false)
+
+  @@index([mailAdresi]) // Add indexes if you frequently query by these fields
+  @@index([urunAdi])
 }
