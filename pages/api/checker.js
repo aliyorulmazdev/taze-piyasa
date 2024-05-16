@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { Resend } from 'resend';
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../../../prisma/client/db";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
     // GET isteği olup olmadığını kontrol etme
     if (req.method === 'GET') {
-        const prisma = new PrismaClient();
         try {
             // Tarih bilgisini al
             const formattedDate = new Date().toISOString().split('T')[0];
