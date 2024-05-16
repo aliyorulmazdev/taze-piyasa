@@ -314,26 +314,26 @@ export default function Meyve() {
                     </h3>
                     <div className="flex items-center justify-between">
                       <div className="text-gray-500 dark:text-gray-400">
-                        <Label className="font-medium">Ürün Tipi:</Label>
+                        <Label className="font-medium">Ürün Tipi: </Label>
                         {meyve.MalTipAdi}
                       </div>
                       <div className="text-gray-500 dark:text-gray-400">
-                        <Label className="font-medium">Birimi:</Label>
+                        <Label className="font-medium">Birimi: </Label>
                         {meyve.Birim}
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="text-gray-500 dark:text-gray-400">
-                        <Label className="font-medium">En Düşük:</Label>₺
+                        <Label className="font-medium">En Düşük: </Label>₺
                         {meyve.AsgariUcret}
                       </div>
                       <div className="text-gray-500 dark:text-gray-400">
-                        <Label className="font-medium">En Yüksek:</Label>₺
+                        <Label className="font-medium">En Yüksek: </Label>₺
                         {meyve.AzamiUcret}
                       </div>
                     </div>
                     <div className="text-gray-500 dark:text-gray-400">
-                      <Label className="font-medium">Ortalama Ücret:</Label>₺
+                      <Label className="font-medium">Ortalama Ücret: </Label>₺
                       {meyve.OrtalamaUcret}
                     </div>
                     <Sheet>
