@@ -17,9 +17,9 @@ export default async function handler(req, res) {
             const reminders = await prisma.PriceReminder.findMany();
 
             for (const row of reminders) {
-                console.log(row)
+                // console.log(row)
                 for (const item of data.HalFiyatListesi) {
-                    console.log(item.MalAdi)
+                    // console.log(item.MalAdi)
                     if (item.MalAdi === row.urun_adi) {
                         let price;
                         if (row.fiyatTipi === 'Average') {
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
                         if (price <= row.istenenFiyat) {
                             // E-posta gönderimi
                             await sendEmail(row.mailAdresi);
-                            console.log(`${row.adSoyad} için eposta gönderildi.`);
+                            // console.log(`${row.adSoyad} için eposta gönderildi.`);
                             // İlgili veritabanı satırını silme işlemi
                             await prisma.priceReminder.delete({ where: { id: row.id } });
                         }
