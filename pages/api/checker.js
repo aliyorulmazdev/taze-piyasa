@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Resend } from 'resend';
 import prisma from '../../prisma/client/db.js'
 
-const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
     // GET isteği olup olmadığını kontrol etme
