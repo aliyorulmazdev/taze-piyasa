@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Resend } from 'resend';
-import prisma from "../../../../prisma/client/db";
+import prisma from '../../prisma/client/db.js'
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

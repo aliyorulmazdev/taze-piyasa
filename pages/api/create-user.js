@@ -1,5 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-import prisma from "../../../../prisma/client/db";
+import prisma from '../../prisma/client/db.js'
 
 export default async function handler(req, res) {
   // POST isteği olup olmadığını kontrol etme
