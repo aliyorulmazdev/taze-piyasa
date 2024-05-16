@@ -1,11 +1,10 @@
 "use client"
 import React from "react";
-import { FaShare, FaArrowUp, FaArrowDown, FaMinus } from "react-icons/fa";
+import { FaArrowUp, FaArrowDown, FaMinus } from "react-icons/fa";
 import { Label } from "@/components/ui/label";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
 import ZoomImage from "./ZoomImage";
+import ShareSheet from "./ShareSheet";
+import ProductHistory from "./ProductHistory";
 
 const SingleProduct = ({ meyve, previousMeyve, date, handleCopyText }) => {
   return (
@@ -61,34 +60,9 @@ const SingleProduct = ({ meyve, previousMeyve, date, handleCopyText }) => {
       <div className="text-gray-500 dark:text-gray-400">
         <Label className="font-medium">Ortalama Ücret: </Label>₺{meyve.OrtalamaUcret}
       </div>
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button className="flex items-center w-full" variant="outline">
-            <FaShare className="mr-2" /> Paylaş
-          </Button>
-        </SheetTrigger>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Paylaşım Bilgileri</SheetTitle>
-            <SheetDescription>
-              <textarea
-                className="w-full h-32 border p-2"
-                defaultValue={`Hey, ${format(date, "dd.MM.yyyy")} günü için ${meyve.MalAdi} ürününün ${meyve.Birim} biriminde ortalama fiyatı ₺${meyve.OrtalamaUcret}. En az ₺${meyve.AsgariUcret} ücretinden, en fazla ise ₺${meyve.AzamiUcret} ücretinden satış görüyor.`}
-              />
-            </SheetDescription>
-          </SheetHeader>
-          <Button
-            className="w-full mt-4"
-            onClick={() =>
-              handleCopyText(
-                `Hey, ${format(date, "dd.MM.yyyy")} günü için Armut(${meyve.MalAdi}) ürününün ${meyve.Birim} i başına ortalama fiyatı ${meyve.OrtalamaUcret}. En az ${meyve.AsgariUcret} ücretinden, en fazla ise ${meyve.AzamiUcret} ücretinden satış görüyor.`
-              )
-            }
-          >
-            Yazıyı Kopyala
-          </Button>
-        </SheetContent>
-      </Sheet>
+      {/* Share Sheet */}
+      <ShareSheet meyve={meyve} date={date} handleCopyText={handleCopyText} />
+      <ProductHistory meyve={meyve} date={date} />
     </div>
   );
 };

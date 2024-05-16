@@ -17,10 +17,10 @@ export default function RootLayout({ children }) {
   return (
     <>
       <html lang="en">
-        <BackToTopButton />
         <body className={chivo.variable}>
           {children}
           <Toaster />
+          <BackToTopButton />
         </body>
       </html>
     </>

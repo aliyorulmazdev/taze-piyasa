@@ -1,24 +1,15 @@
 "use client";
 import axios from "axios";
 import * as React from "react";
-import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import { format, startOfDay } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { useToast } from "@/components/ui/use-toast";
 import Sidebar from "../_components/Sidebar";
 import SortDropdown from "../_components/SortDropdown";
 import SingleProduct from "../_components/SingleProduct.js";
 import PopoverButton from "../_components/PopoverButton";
+
 export default function Meyve() {
   const [meyveData, setMeyveData] = useState([]);
   const [date, setDate] = React.useState(startOfDay(new Date()));
@@ -84,6 +75,7 @@ export default function Meyve() {
 
     fetchData();
   }, [date]);
+
   useEffect(() => {
     const filtered = meyveData.filter((item) =>
       item.MalAdi.toLowerCase().includes(searchQuery.toLowerCase())
@@ -152,28 +144,7 @@ export default function Meyve() {
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl hidden md:block">
                 Meyve
               </h1>
-              {/* <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={cn(
-                      "w-[280px] justify-start text-left font-normal",
-                      !date && "text-muted-foreground"
-                    )}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {date ? format(date, "PPP") : <Label>Tarih Seçin</Label>}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover> */}
+              {/* Popover - DateSelection */}
               <PopoverButton date={date} onSelect={setDate} />
               {/* SortDropDown */}
               <SortDropdown handleSortChange={handleSortChange} />
