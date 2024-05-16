@@ -18,6 +18,7 @@ import { useToast } from "@/components/ui/use-toast";
 import Sidebar from "../_components/Sidebar";
 import SortDropdown from "../_components/SortDropdown";
 import SingleProduct from "../_components/SingleProduct.js";
+import PopoverButton from "../_components/PopoverButton";
 export default function Meyve() {
   const [meyveData, setMeyveData] = useState([]);
   const [date, setDate] = React.useState(startOfDay(new Date()));
@@ -151,7 +152,7 @@ export default function Meyve() {
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl hidden md:block">
                 Meyve
               </h1>
-              <Popover>
+              {/* <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant={"outline"}
@@ -172,7 +173,8 @@ export default function Meyve() {
                     initialFocus
                   />
                 </PopoverContent>
-              </Popover>
+              </Popover> */}
+              <PopoverButton date={date} onSelect={setDate} />
               {/* SortDropDown */}
               <SortDropdown handleSortChange={handleSortChange} />
             </div>
