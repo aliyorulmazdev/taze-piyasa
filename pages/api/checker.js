@@ -32,7 +32,7 @@ export default async function handler(req, res) {
                         if (price <= row.istenen_fiyat) {
                             // E-posta gönderimi
                             await sendEmail(row.mail_adresi);
-                            console.log(`${row.ad_soyad} için eposta gönderildi`);
+                            console.log(`${row.ad_soyad} için eposta gönderildi.`);
                             // İlgili veritabanı satırını silme işlemi
                             await prisma.priceReminder.delete({ where: { id: row.id } });
                         }
