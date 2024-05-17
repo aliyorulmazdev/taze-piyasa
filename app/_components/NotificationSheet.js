@@ -5,6 +5,7 @@ import { FaEnvelope } from "react-icons/fa";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -87,15 +88,21 @@ const NotificationSheet = ({ meyve, date, handleCopyText }) => {
     <div>
       <Sheet>
         <SheetTrigger asChild>
-          <Button className="flex items-center w-full" variant="outline">
-            <FaEnvelope className="mr-2" /> Fiyat Takibi
+          <Button
+            variant="ghost"
+            className="flex-1 rounded-none border-r border-gray-200 dark:border-gray-800 data-[state=active]:bg-gray-100 dark:data-[state=active]:bg-gray-800"
+          >
+            <FaEnvelope className="mr-2" /> Alarm
           </Button>
         </SheetTrigger>
         <SheetContent>
           <SheetHeader>
             <SheetTitle>İletişim Bilgileri</SheetTitle>
-            <Label>Seçilen Ürün: {meyve.MalAdi}</Label>
           </SheetHeader>
+          <SheetDescription className='pb-3 pt-3'>
+            <Label>Seçilen Ürün: {meyve.MalAdi}</Label>
+          </SheetDescription>
+
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <Label>Ad Soyad</Label>

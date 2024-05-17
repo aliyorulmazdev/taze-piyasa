@@ -45,7 +45,9 @@ const SingleProduct = ({
           {comparisonList.some(
             (item) => item.MalAdi === meyve.MalAdi && item.Date === meyve.Date
           ) ? (
-            <Button className='bg-green-500 hover:bg-green-500'><FaList /></Button>
+            <Button className="bg-green-500 hover:bg-green-500">
+              <FaList />
+            </Button>
           ) : (
             <Button onClick={() => handleAddToComparison(meyve)}>
               <FaList />
@@ -54,47 +56,39 @@ const SingleProduct = ({
         </div>
 
         <div className="flex items-center justify-end">
-          {icon}
-          <Label>{label}</Label>
+          <div className="flex items-center">
+            {icon}
+            <Label>{label}</Label>
+          </div>
         </div>
       </div>
-
       <div>
         <ZoomImage
           alt={meyve.MalAdi}
-          className="w-full aspect-square object-cover rounded-lg"
+          className="w-full aspect-square object-cover rounded-2xl"
           height={256}
           src={`/images/${meyve.MalAdi.replace(/\s+/g, "").toLowerCase()}.png`}
           width={256}
         />
       </div>
-      <h3 className="text-lg font-semibold pt-3">{meyve.MalAdi}</h3>
-      <div className="flex items-center justify-between">
-        <div className="text-gray-500 dark:text-gray-400">
-          <Label className="font-medium">Ürün Tipi: </Label>
-          {meyve.MalTipAdi}
+      <Label className="font-medium text-lg pt-5">{meyve.MalAdi}</Label>
+      <div className="flex items-center justify-between border-b border-gray-300 dark:border-gray-700 pb-2">
+        <div className="text-gray-700 dark:text-gray-300">
+          <Label className="font-light">En Düşük: ₺{meyve.AsgariUcret}</Label>
         </div>
-        <div className="text-gray-500 dark:text-gray-400">
-          <Label className="font-medium">Birimi: </Label>
-          {meyve.Birim}
+        <div className="text-gray-700 dark:text-gray-300">
+          <Label className="font-light">En Yüksek: ₺{meyve.AzamiUcret}</Label>
         </div>
       </div>
-      <div className="flex items-center justify-between">
-        <div className="text-gray-500 dark:text-gray-400">
-          <Label className="font-medium">En Düşük: </Label>₺{meyve.AsgariUcret}
-        </div>
-        <div className="text-gray-500 dark:text-gray-400">
-          <Label className="font-medium">En Yüksek: </Label>₺{meyve.AzamiUcret}
-        </div>
+      <div className="text-gray-700 dark:text-gray-300 border-b border-gray-300 dark:border-gray-700 pb-2">
+        <Label className="font-medium">Ortalama Ücret: ₺
+        {meyve.OrtalamaUcret}</Label>
       </div>
-      <div className="text-gray-500 dark:text-gray-400">
-        <Label className="font-medium">Ortalama Ücret: </Label>₺
-        {meyve.OrtalamaUcret}
+      <div className="flex">
+        <ShareSheet meyve={meyve} date={date} handleCopyText={handleCopyText} />
+        <ProductHistory meyve={meyve} date={date} />
+        <NotificationSheet meyve={meyve} date={date} />
       </div>
-      {/* Share Sheet */}
-      <ShareSheet meyve={meyve} date={date} handleCopyText={handleCopyText} />
-      <ProductHistory meyve={meyve} date={date} />
-      <NotificationSheet meyve={meyve} date={date} />
     </div>
   );
 };

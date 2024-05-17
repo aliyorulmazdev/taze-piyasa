@@ -13,11 +13,11 @@ const ZoomImage = ({ src, alt, className, width, height }) => {
   };
 
   return (
-    <div className="relative overflow-hidden shadow-lg stroke-transparent">
+    <div className="relative overflow-hidden">
       <div className="relative">
         <Image
           alt={alt}
-          className={`w-full h-full ${className}`}
+          className={`pt-3 w-full h-full ${className}`}
           src={src}
           width={width}
           height={height}
