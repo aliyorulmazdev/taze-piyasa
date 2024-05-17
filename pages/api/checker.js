@@ -134,7 +134,7 @@ async function sendEmail(
     `;
 
   const { data, error } = await resend.emails.send({
-    from: "Acme <onboarding@resend.dev>",
+    from: "Taze Lezzet <notification@hizlilezzet.com>",
     to: mail,
     subject: "Taze Piyasa | Fiyat Bildirimi",
     html: emailHtml,
