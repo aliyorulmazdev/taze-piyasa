@@ -8,27 +8,24 @@ import ProductHistory from "./ProductHistory";
 import NotificationSheet from "./NotificationSheet";
 
 const SingleProduct = ({ meyve, previousMeyve, date, handleCopyText }) => {
+  // Calculate percentage change in price
+  const percentageChange = previousMeyve ? ((meyve.OrtalamaUcret - previousMeyve.OrtalamaUcret) / previousMeyve.OrtalamaUcret) * 100 : 0;
+  // Determine the icon and label based on percentage change
+  let icon = <FaMinus className="text-white dark:text-gray-400 size-6" />;
+  let label = "";
+  if (percentageChange > 0) {
+    icon = <FaArrowUp className="text-red-500 dark:text-red-400 size-6" />;
+    label = `${Math.abs(percentageChange.toFixed(2))}% Artmış`;
+  } else if (percentageChange < 0) {
+    icon = <FaArrowDown className="text-green-500 dark:text-green-400 size-6" />;
+    label = `${Math.abs(percentageChange.toFixed(2))}% Azalmış`;
+  }
+
   return (
     <div className="bg-white dark:bg-gray-950 rounded-lg shadow-lg overflow-hidden transition-all hover:scale-[1.02] hover:shadow-xl p-4 flex flex-col gap-2" key={meyve.MalAdi}>
-
       <div className="flex items-center justify-end gap-1">
-        {previousMeyve ? (
-          <>
-            {meyve.OrtalamaUcret > previousMeyve.OrtalamaUcret ? (
-              <>
-                <Label>Fiyatı Artmış</Label>
-                <FaArrowUp className="text-red-500 dark:text-red-400 size-6" />
-              </>
-            ) : meyve.OrtalamaUcret < previousMeyve.OrtalamaUcret ? (
-              <>
-                <FaArrowDown className="text-green-500 dark:text-green-400 size-6" />
-                <Label>Fiyatı Düşmüş</Label>
-              </>
-            ) : (
-              <FaMinus className="text-white dark:text-gray-400 size-6" />
-            )}
-          </>
-        ) : <FaMinus className="text-white dark:text-gray-400 size-6" />}
+        {icon}
+        <Label>{label}</Label>
       </div>
       <div>
         <ZoomImage
