@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import ZoomImage from "./ZoomImage";
 import ShareSheet from "./ShareSheet";
 import ProductHistory from "./ProductHistory";
+import NotificationSheet from "./NotificationSheet";
 
 const SingleProduct = ({ meyve, previousMeyve, date, handleCopyText }) => {
   return (
@@ -63,6 +64,7 @@ const SingleProduct = ({ meyve, previousMeyve, date, handleCopyText }) => {
       {/* Share Sheet */}
       <ShareSheet meyve={meyve} date={date} handleCopyText={handleCopyText} />
       <ProductHistory meyve={meyve} date={date} />
+      <NotificationSheet meyve={meyve} date={date} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import prisma from '../../prisma/client/db.js'
+import prisma from '../../prisma/client/db.js';
 
 export default async function handler(req, res) {
   // POST isteği olup olmadığını kontrol etme
@@ -6,6 +6,9 @@ export default async function handler(req, res) {
     // İstekten verileri alma
     const { adSoyad, mailAdresi, urunAdi, fiyatTipi, istenenFiyat, sendMail } = req.body;
     try {
+      // istenenFiyat'ı floata çevirme
+      const istenenFiyatFloat = parseFloat(istenenFiyat);
+
       // Veritabanına yeni kayıt ekleme
       await prisma.priceReminder.create({
         data: {
@@ -13,7 +16,7 @@ export default async function handler(req, res) {
           mailAdresi,
           urunAdi,
           fiyatTipi,
-          istenenFiyat,
+          istenenFiyat: istenenFiyatFloat,
           sendMail
         }
       });
