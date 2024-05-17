@@ -1,14 +1,26 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/3pJUCmIavpH
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import Link from "next/link";
 import { CardContent, Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { useEffect, useState } from "react";
 
 export default function FeatureCard() {
+  const [commitDate, setCommitDate] = useState("");
+  const [commitMessage, setCommitMessage] = useState("");
+  const [commitBy, setCommitBy] = useState("");
+
+  useEffect(() => {
+    async function fetchCommitData() {
+      const response = await fetch("https://api.github.com/repos/aliyorulmazdev/taze-piyasa/branches/master");
+      const data = await response.json();
+      const commitInfo = data.commit.commit;
+      setCommitDate(commitInfo.committer.date.split("T")[0]);
+      setCommitMessage(commitInfo.message);
+      setCommitBy(commitInfo.author.name);
+    }
+
+    fetchCommitData();
+  }, []);
   return (
     <Card className="w-full max-w-sm justify-center items-center shadow-lg">
       <CardContent className="flex flex-col items-center gap-4 p-6">
@@ -59,11 +71,11 @@ export default function FeatureCard() {
         </div>
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mt-4">
           <CalendarDaysIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-          <Label>Updated on 2024-05-17</Label>
+          <Label>Son Güncelleme Tarihi : {commitDate} | {commitBy}</Label>
         </div>
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mt-4">
           <StarIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-          <Label>Latest Feat: Product photos colorized, price icon sizes decreased.</Label>
+          <Label>Commit İçeriği: {commitMessage}</Label>
         </div>
       </CardContent>
     </Card>
