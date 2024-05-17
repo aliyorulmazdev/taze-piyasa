@@ -5,6 +5,7 @@ import { FaEnvelope } from "react-icons/fa";
 import {
   Sheet,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -13,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { z } from "zod";
 import { toast } from "@/components/ui/use-toast";
+import Image from "next/image";
 
 const formSchema = z.object({
   adSoyad: z.string().min(2, {
@@ -151,6 +153,15 @@ const NotificationSheet = ({ meyve, date, handleCopyText }) => {
               Bana Haber Ver
             </Button>
           </form>
+          <SheetFooter>
+            <Image
+              src="/images/simple.png"
+              alt="Example Mail"
+              width={250}
+              height={250}
+              className="mx-auto rounded-lg shadow-lg mt-10"
+            />
+          </SheetFooter>
         </SheetContent>
       </Sheet>
     </div>

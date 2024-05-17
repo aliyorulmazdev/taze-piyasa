@@ -8,20 +8,28 @@ export default function Home() {
           Taze Piyasa'ya Hoş Geldiniz
         </h1>
         <p className="text-lg md:text-xl lg:text-lg text-gray-700 dark:text-gray-300 mb-6">
-          İzmir Büyükşehir Belediyesi'nin sağladığı API noktası üzerinden
+          <span className="italic">İzmir Büyükşehir Belediyesi</span>'nin
+          sağladığı <span className="font-bold">API</span> noktası üzerinden
           eriştiğim fiyatları anında ve erişilebilir bir şekilde sergileyen
-          projemi keşfedin. Next.js ile geliştirdiğim bu platformda, taze
-          meyve, sebze ve ithal ürün fiyatlarını kolayca görüntüleyebilir,
-          artış ve azalış seviyelerini takip edebilirsiniz.
+          projemi keşfedin. <span className="italic">Next.js</span> ile
+          geliştirdiğim bu platformda,{" "}
+          <span className="italic">taze meyve</span>,{" "}
+          <span className="italic">sebze</span> ve{" "}
+          <span className="italic">ithal ürün</span> fiyatlarını kolayca
+          görüntüleyebilir, artış ve azalış seviyelerini takip edebilir, grafik
+          olarak geçmiş fiyatlarını birbiri ile kıyaslayabilir,{" "}
+          <span className="font-bold">dilerseniz</span> fiyat istediğiniz
+          seviyeye ulaştığında size mail gelmesini sağlayabilirsiniz.
         </p>
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 md:mt-12 w-full max-w-5xl">
         <Link
           className="group bg-white rounded-lg shadow-lg overflow-hidden transition-all hover:scale-[1.02] hover:shadow-xl dark:bg-gray-950"
           href="/meyve"
         >
           <div className="aspect-square flex flex-col items-center justify-center p-8 space-y-4">
-            <AppleIcon className="w-12 h-12 text-gray-900 group-hover:text-red-700 dark:text-gray-50 dark:group-hover:text-gray-300" />
+            <AppleIcon className="w-12 h-12 text-gray-900 group-hover:text-red-700 dark:text-gray-50 dark:group-hover:text-gray-300 hover:animate-spin" />
             <h2 className="text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-700 dark:text-gray-50 dark:group-hover:text-gray-300">
               Meyve
             </h2>
