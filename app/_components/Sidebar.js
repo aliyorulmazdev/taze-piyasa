@@ -25,9 +25,6 @@ export default function Sidebar({
               Anasayfa
             </Button>
           </Link>
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
-            Taze Lezzet
-          </h2>
           <Button size="sm" variant="outline" onClick={handleResetFilters}>
             Temizle
           </Button>
@@ -49,7 +46,7 @@ export default function Sidebar({
           <Button className="w-full" variant="default">
             Filtrele
           </Button>
-          <div className="hidden md:flex justify-center pt-10">
+          <div className="hidden md:flex justify-center pt-2">
             <div className="inline-block">
               <FeatureCard />
             </div>
