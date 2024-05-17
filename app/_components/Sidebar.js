@@ -6,11 +6,14 @@ import { Label } from "@/components/ui/label";
 import FeatureCard from "./FeatureCard";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
+import ComparisionSheet from "./ComparisionSheet";
 
 export default function Sidebar({
   searchQuery,
   handleSearchChange,
   handleResetFilters,
+  comparisonList,
+  removeFromComparison,
 }) {
   return (
     <div className="bg-white dark:bg-gray-950 w-full md:w-1/3 lg:w-1/4 p-6 border-r border-gray-200 dark:border-gray-800 md:block md:sticky top-0">
@@ -18,7 +21,8 @@ export default function Sidebar({
         <div className="flex items-center justify-between">
           <Link href="/">
             <Button size="sm" variant="default">
-              <FaArrowLeft className="mr-3" />Anasayfa
+              <FaArrowLeft className="mr-3" />
+              Anasayfa
             </Button>
           </Link>
           <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
@@ -28,6 +32,7 @@ export default function Sidebar({
             Temizle
           </Button>
         </div>
+        <ComparisionSheet comparisonList={comparisonList} removeFromComparison={removeFromComparison } />
         <div className="grid gap-4">
           <div>
             <Label className="text-base" htmlFor="name">

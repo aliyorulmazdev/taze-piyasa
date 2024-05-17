@@ -1,15 +1,27 @@
-"use client"
+"use client";
 import React from "react";
-import { FaArrowUp, FaArrowDown, FaMinus } from "react-icons/fa";
+import { FaArrowUp, FaArrowDown, FaMinus, FaList } from "react-icons/fa";
 import { Label } from "@/components/ui/label";
 import ZoomImage from "./ZoomImage";
 import ShareSheet from "./ShareSheet";
 import ProductHistory from "./ProductHistory";
 import NotificationSheet from "./NotificationSheet";
+import { Button } from "@/components/ui/button";
 
-const SingleProduct = ({ meyve, previousMeyve, date, handleCopyText }) => {
+const SingleProduct = ({
+  meyve,
+  previousMeyve,
+  date,
+  handleCopyText,
+  handleAddToComparison,
+  comparisonList,
+}) => {
   // Calculate percentage change in price
-  const percentageChange = previousMeyve ? ((meyve.OrtalamaUcret - previousMeyve.OrtalamaUcret) / previousMeyve.OrtalamaUcret) * 100 : 0;
+  const percentageChange = previousMeyve
+    ? ((meyve.OrtalamaUcret - previousMeyve.OrtalamaUcret) /
+        previousMeyve.OrtalamaUcret) *
+      100
+    : 0;
   // Determine the icon and label based on percentage change
   let icon = <FaMinus className="text-white dark:text-gray-400 size-6" />;
   let label = "";
@@ -17,16 +29,36 @@ const SingleProduct = ({ meyve, previousMeyve, date, handleCopyText }) => {
     icon = <FaArrowUp className="text-red-500 dark:text-red-400 size-6" />;
     label = `${Math.abs(percentageChange.toFixed(2))}% Artmış`;
   } else if (percentageChange < 0) {
-    icon = <FaArrowDown className="text-green-500 dark:text-green-400 size-6" />;
+    icon = (
+      <FaArrowDown className="text-green-500 dark:text-green-400 size-6" />
+    );
     label = `${Math.abs(percentageChange.toFixed(2))}% Azalmış`;
   }
 
   return (
-    <div className="bg-white dark:bg-gray-950 rounded-lg shadow-lg overflow-hidden transition-all hover:scale-[1.02] hover:shadow-xl p-4 flex flex-col gap-2" key={meyve.MalAdi}>
-      <div className="flex items-center justify-end gap-1">
-        {icon}
-        <Label>{label}</Label>
+    <div
+      className="bg-white dark:bg-gray-950 rounded-lg shadow-lg overflow-hidden transition-all hover:scale-[1.02] hover:shadow-xl p-4 flex flex-col gap-2"
+      key={meyve.MalAdi}
+    >
+      <div className="flex items-center justify-between">
+        <div>
+          {comparisonList.some(
+            (item) => item.MalAdi === meyve.MalAdi && item.Date === meyve.Date
+          ) ? (
+            <Button className='bg-green-500 hover:bg-green-500'><FaList /></Button>
+          ) : (
+            <Button onClick={() => handleAddToComparison(meyve)}>
+              <FaList />
+            </Button>
+          )}
+        </div>
+
+        <div className="flex items-center justify-end">
+          {icon}
+          <Label>{label}</Label>
+        </div>
       </div>
+
       <div>
         <ZoomImage
           alt={meyve.MalAdi}
@@ -56,7 +88,8 @@ const SingleProduct = ({ meyve, previousMeyve, date, handleCopyText }) => {
         </div>
       </div>
       <div className="text-gray-500 dark:text-gray-400">
-        <Label className="font-medium">Ortalama Ücret: </Label>₺{meyve.OrtalamaUcret}
+        <Label className="font-medium">Ortalama Ücret: </Label>₺
+        {meyve.OrtalamaUcret}
       </div>
       {/* Share Sheet */}
       <ShareSheet meyve={meyve} date={date} handleCopyText={handleCopyText} />

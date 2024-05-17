@@ -9,6 +9,7 @@ import Sidebar from "../_components/Sidebar";
 import SortDropdown from "../_components/SortDropdown";
 import SingleProduct from "../_components/SingleProduct.js";
 import PopoverButton from "../_components/PopoverButton";
+import ComparisionSheet from "../_components/ComparisionSheet";
 
 export default function Meyve() {
   const [meyveData, setMeyveData] = useState([]);
@@ -21,6 +22,7 @@ export default function Meyve() {
   const [filteredPreviousMeyveData, setFilteredPreviousMeyveData] = useState(
     []
   );
+  const [comparisonList, setComparisonList] = useState([]);
   const { toast } = useToast();
   // İlk useEffect içerisine
   useEffect(() => {
@@ -44,7 +46,7 @@ export default function Meyve() {
         } else {
           const meyveListesi = response.data.HalFiyatListesi.filter(
             (item) => item.MalTipAdi === "MEYVE"
-          );
+          ).map((meyve) => ({ ...meyve, Date: formattedDate })); // Tarih bilgisini meyve öğesine ekliyoruz
           setMeyveData(meyveListesi);
         }
       } catch (error) {
@@ -65,7 +67,7 @@ export default function Meyve() {
         } else {
           const meyveListesi = response.data.HalFiyatListesi.filter(
             (item) => item.MalTipAdi === "MEYVE"
-          );
+          ).map((meyve) => ({ ...meyve, Date: formattedPreviousDate })); // Tarih bilgisini meyve öğesine ekliyoruz
           setFilteredPreviousMeyveData(meyveListesi);
         }
       } catch (error) {
@@ -128,6 +130,19 @@ export default function Meyve() {
     });
   };
 
+  const handleAddToComparison = (meyve) => {
+    if (
+      !comparisonList.some(
+        (item) => item.MalAdi === meyve.MalAdi && item.Date === meyve.Date
+      )
+    ) {
+      setComparisonList([...comparisonList, meyve]);
+    }
+  };
+
+  const removeFromComparison = (meyve) => {
+    setComparisonList((prevList) => prevList.filter((item) => item !== meyve));
+  };
   return (
     <>
       <main className="flex flex-col md:flex-row w-full min-h-[100dvh]">
@@ -136,6 +151,8 @@ export default function Meyve() {
           searchQuery={searchQuery}
           handleSearchChange={handleSearchChange}
           handleResetFilters={handleResetFilters}
+          comparisonList={comparisonList}
+          removeFromComparison={removeFromComparison}
         />
         {/* Main content */}
         <div className="flex-1 bg-gray-100 dark:bg-gray-900 p-6 ">
@@ -180,6 +197,8 @@ export default function Meyve() {
                     )}
                     date={date}
                     handleCopyText={handleCopyText}
+                    handleAddToComparison={handleAddToComparison}
+                    comparisonList={comparisonList}
                   />
                 ))
               )}
