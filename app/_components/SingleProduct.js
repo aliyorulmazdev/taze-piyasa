@@ -28,7 +28,7 @@ const SingleProduct = ({ meyve, previousMeyve, date, handleCopyText }) => {
               <FaMinus className="text-white dark:text-gray-400 size-6" />
             )}
           </>
-        ) : null}
+        ) : <FaMinus className="text-white dark:text-gray-400 size-6" />}
       </div>
       <div>
         <ZoomImage

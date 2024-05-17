@@ -1,11 +1,18 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { FaShare } from "react-icons/fa";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { FaEnvelope } from "react-icons/fa";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { z } from "zod";
+import { toast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   adSoyad: z.string().min(2, {
@@ -14,8 +21,8 @@ const formSchema = z.object({
   mailAdresi: z.string().email("Geçerli bir e-posta adresi giriniz."),
   fiyatTipi: z.enum(["Average", "Maximum", "Minimum"]),
   istenenFiyat: z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
-    message: "Fiyat Yazmalısınız."
-  })
+    message: "Fiyat Yazmalısınız.",
+  }),
 });
 
 const NotificationSheet = ({ meyve, date, handleCopyText }) => {
@@ -64,11 +71,13 @@ const NotificationSheet = ({ meyve, date, handleCopyText }) => {
       }
 
       const result = await response.json();
-      console.log("Subscription successful:", result);
-      alert("Subscription successful");
+      toast({
+        title: "Tebrikler!",
+        description:
+          "İsteğinizi aldık, fiyat istenen düzeye geldiğinde sizi bilgilendireceğiz.",
+      });
     } catch (error) {
-      console.error("Subscription error:", error);
-      alert("Subscription failed");
+      console.error("Subscription hatası:", error);
     }
   };
 
@@ -77,7 +86,7 @@ const NotificationSheet = ({ meyve, date, handleCopyText }) => {
       <Sheet>
         <SheetTrigger asChild>
           <Button className="flex items-center w-full" variant="outline">
-            <FaShare className="mr-2" /> Fiyat Takibi
+            <FaEnvelope className="mr-2" /> Fiyat Takibi
           </Button>
         </SheetTrigger>
         <SheetContent>
@@ -94,7 +103,9 @@ const NotificationSheet = ({ meyve, date, handleCopyText }) => {
                 value={formData.adSoyad}
                 onChange={handleChange}
               />
-              {errors.adSoyad && <p className="text-red-600">{errors.adSoyad}</p>}
+              {errors.adSoyad && (
+                <p className="text-red-600">{errors.adSoyad}</p>
+              )}
             </div>
             <div className="mb-4">
               <Label>E-posta Adresi</Label>
@@ -104,7 +115,9 @@ const NotificationSheet = ({ meyve, date, handleCopyText }) => {
                 value={formData.mailAdresi}
                 onChange={handleChange}
               />
-              {errors.mailAdresi && <p className="text-red-600">{errors.mailAdresi}</p>}
+              {errors.mailAdresi && (
+                <p className="text-red-600">{errors.mailAdresi}</p>
+              )}
             </div>
             <div className="mb-4">
               <Label>Fiyat Tipi</Label>
@@ -118,7 +131,9 @@ const NotificationSheet = ({ meyve, date, handleCopyText }) => {
                 <option value="Maximum">En Yüksek Fiyat</option>
                 <option value="Minimum">En Düşük Fiyat</option>
               </select>
-              {errors.fiyatTipi && <p className="text-red-600">{errors.fiyatTipi}</p>}
+              {errors.fiyatTipi && (
+                <p className="text-red-600">{errors.fiyatTipi}</p>
+              )}
             </div>
             <div className="mb-4">
               <Label>İstenen Fiyat</Label>
@@ -128,7 +143,9 @@ const NotificationSheet = ({ meyve, date, handleCopyText }) => {
                 value={formData.istenenFiyat}
                 onChange={handleChange}
               />
-              {errors.istenenFiyat && <p className="text-red-600">{errors.istenenFiyat}</p>}
+              {errors.istenenFiyat && (
+                <p className="text-red-600">{errors.istenenFiyat}</p>
+              )}
             </div>
             <Button className="w-full mt-4" type="submit">
               Bana Haber Ver
