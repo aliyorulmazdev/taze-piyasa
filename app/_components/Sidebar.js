@@ -33,19 +33,16 @@ export default function Sidebar({
         <div className="grid gap-4">
           <div>
             <Label className="text-base" htmlFor="name">
-              Adı
+              Ürün Adına Göre Filtrele
             </Label>
             <Input
               id="name"
-              placeholder="Buraya yazın."
+              placeholder="Buraya ürün adı girin."
               type="text"
               value={searchQuery}
               onChange={handleSearchChange}
             />
           </div>
-          <Button className="w-full" variant="default">
-            Filtrele
-          </Button>
           <div className="hidden md:flex justify-center pt-2">
             <div className="inline-block">
               <FeatureCard />

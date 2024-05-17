@@ -9,8 +9,9 @@ import Sidebar from "../_components/Sidebar";
 import SortDropdown from "../_components/SortDropdown";
 import SingleProduct from "../_components/SingleProduct.js";
 import PopoverButton from "../_components/PopoverButton";
-import ComparisionSheet from "../_components/ComparisionSheet";
 
+import * as XLSX from "xlsx";
+import { Button } from "@/components/ui/button";
 export default function Meyve() {
   const [meyveData, setMeyveData] = useState([]);
   const [date, setDate] = React.useState(startOfDay(new Date()));
@@ -143,6 +144,28 @@ export default function Meyve() {
   const removeFromComparison = (meyve) => {
     setComparisonList((prevList) => prevList.filter((item) => item !== meyve));
   };
+
+  const handleExportToExcel = () => {
+    // Filter out the fields 'HalTuru', 'MalTipId', and 'Gorsel', and prepare the data
+    const exportData = filteredMeyveData.map(
+      ({ HalTuru, MalTipId, Gorsel, ...rest }) => rest
+    );
+
+    // Create a new worksheet
+    const ws = XLSX.utils.json_to_sheet(exportData);
+
+    // Create a new workbook and append the worksheet
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Meyve Fiyatları");
+
+    // Write the workbook to a file with modified filename
+    const filename = `Taze Piyasa - ${format(
+      date,
+      "yyyy-MM-dd"
+    )} - Meyve Fiyatları.xlsx`;
+    XLSX.writeFile(wb, filename);
+  };
+
   return (
     <>
       <main className="flex flex-col md:flex-row w-full min-h-[100dvh]">
@@ -155,7 +178,7 @@ export default function Meyve() {
           removeFromComparison={removeFromComparison}
         />
         {/* Main content */}
-        <div className="flex-1 bg-gray-100 dark:bg-gray-900 p-6 ">
+        <div className="flex-1 bg-gray-100 dark:bg-gray-900 p-6">
           <div className="max-w-5xl mx-auto">
             <div className="flex items-center justify-between mb-6 p-4">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl hidden md:block">
@@ -165,6 +188,11 @@ export default function Meyve() {
               <PopoverButton date={date} onSelect={setDate} />
               {/* SortDropDown */}
               <SortDropdown handleSortChange={handleSortChange} />
+            </div>
+            <div className="flex items-center justify-between mb-6 p-4">
+              <Button className="w-full" onClick={handleExportToExcel}>
+                Excel'e Aktar
+              </Button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
               {loading ? (

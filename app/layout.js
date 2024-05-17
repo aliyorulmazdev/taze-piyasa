@@ -2,6 +2,7 @@ import { Chivo } from "next/font/google";
 import "./globals.css";
 import BackToTopButton from "./_components/ScrollToTop";
 import { Toaster } from "@/components/ui/toaster";
+import ComparisionSheet from "./_components/ComparisionSheet";
 
 const chivo = Chivo({
   subsets: ["latin"],
