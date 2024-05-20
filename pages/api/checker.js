@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
       for (const row of reminders) {
         for (const item of data.HalFiyatListesi) {
-            if (item.MalAdi.toLowerCase() === row.urunAdi.toLowerCase()) {
+          if (item.MalAdi.toLowerCase() === row.urunAdi.toLowerCase()) {
             let price;
             if (row.fiyatTipi === "Average") {
               price = item.OrtalamaUcret;
@@ -71,80 +71,85 @@ async function sendEmail(
   const today = new Date().toISOString().split("T")[0];
 
   const emailHtml = `
-        <html>
-            <head>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        background-color: #f4f4f4;
-                        margin: 0;
-                        padding: 0;
-                    }
-                    .container {
-                        width: 80%;
-                        margin: 0 auto;
-                        background-color: #ffffff;
-                        padding: 20px;
-                        border-radius: 8px;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                    }
-                    .header {
-                        text-align: center;
-                        padding: 20px 0;
-                    }
+          <html>
+              <head>
+                  <style>
+                      body {
+                          font-family: Arial, sans-serif;
+                          background-color: #f4f4f4;
+                          margin: 0;
+                          padding: 0;
+                      }
+                      .container {
+                          width: 80%;
+                          margin: 0 auto;
+                          background-color: #ffffff;
+                          padding: 20px;
+                          border-radius: 8px;
+                          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                      }
+                      .header {
+                          text-align: center;
+                          padding: 20px 0;
+                      }
+  
+                      .content {
+                          text-align: center;
+                      }
+                      .content h1 {
+                          color: #333;
+                      }
+                      .content p {
+                          color: #666;
+                          line-height: 1.6;
+                      }
+                      .footer {
+                          text-align: center;
+                          padding: 10px 0;
+                          color: #999;
+                          font-size: 12px;
+                      }
+                  </style>
+              </head>
+              <body>
+                  <div class="container">
+                      <div class="header">
+                          <h1>Taze Piyasa | Fiyat Bildirimi</h1>
+                      </div>
+                      <div class="content">
+                          <h1>Merhaba ${adSoyad},</h1>
+                          <p>Bugünün tarihi: ${today}</p>
+                          <p>İstediğiniz ürünün fiyatı istenilen seviyede.</p>
+                          <p><strong>Ürün Adı:</strong> ${urunAdi}</p>
+                          <p><strong>Fiyat Tipi:</strong> ${fiyatTipi}</p>
+                          <p><strong>İstenen Fiyat:</strong> ${istenenFiyat}</p>
+                          <p><strong>Şuanki Fiyat:</strong> ${currentPrice}</p>
+                      </div>
+                      <div class="footer">
+                          <p>© 2024 Taze Piyasa. Tüm hakları saklıdır.</p>
+                      </div>
+                  </div>
+              </body>
+          </html>
+      `;
 
-                    .content {
-                        text-align: center;
-                    }
-                    .content h1 {
-                        color: #333;
-                    }
-                    .content p {
-                        color: #666;
-                        line-height: 1.6;
-                    }
-                    .footer {
-                        text-align: center;
-                        padding: 10px 0;
-                        color: #999;
-                        font-size: 12px;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <div class="header">
-                        <h1>Taze Piyasa | Fiyat Bildirimi</h1>
-                    </div>
-                    <div class="content">
-                        <h1>Merhaba ${adSoyad},</h1>
-                        <p>Bugünün tarihi: ${today}</p>
-                        <p>İstediğiniz ürünün fiyatı istenilen seviyede.</p>
-                        <p><strong>Ürün Adı:</strong> ${urunAdi}</p>
-                        <p><strong>Fiyat Tipi:</strong> ${fiyatTipi}</p>
-                        <p><strong>İstenen Fiyat:</strong> ${istenenFiyat}</p>
-                        <p><strong>Şuanki Fiyat:</strong> ${currentPrice}</p>
-                    </div>
-                    <div class="footer">
-                        <p>© 2024 Taze Piyasa. Tüm hakları saklıdır.</p>
-                    </div>
-                </div>
-            </body>
-        </html>
-    `;
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'Acme <onboarding@resend.dev>',
+      to: mail,
+      subject: "Taze Piyasa | Fiyat Bildirimi",
+      html: emailHtml,
+    });
 
-  const { data, error } = await resend.emails.send({
-    from: "Taze Lezzet <notification@hizlilezzet.com>",
-    to: mail,
-    subject: "Taze Piyasa | Fiyat Bildirimi",
-    html: emailHtml,
-  });
+    if (error) {
+      throw new Error(`E-posta gönderim hatası: ${error.message}`);
+    }
 
-  if (error) {
+    console.log("E-posta gönderildi:", data);
+  } catch (error) {
+    console.error("E-posta gönderim hatası:", error);
     throw new Error(`E-posta gönderim hatası: ${error.message}`);
   }
-
-  console.log("E-posta gönderildi:", data);
 }
 
 function delay(ms) {

@@ -34,7 +34,7 @@ export default function Home() {
               Meyve
             </h2>
             <p className="text-gray-500 group-hover:text-gray-600 dark:text-gray-400 dark:group-hover:text-gray-300">
-              Birbirinden taze meyveler..
+            Dalından evinize.
             </p>
           </div>
         </Link>
@@ -48,7 +48,7 @@ export default function Home() {
               Sebze
             </h2>
             <p className="text-gray-500 group-hover:text-gray-600 dark:text-gray-400 dark:group-hover:text-gray-300">
-              Yeşilinden kırmızısına, hepsi taptaze..
+            Doğadan sofranıza!
             </p>
           </div>
         </Link>
@@ -62,7 +62,7 @@ export default function Home() {
               İthal
             </h2>
             <p className="text-gray-500 group-hover:text-gray-600 dark:text-gray-400 dark:group-hover:text-gray-300">
-              Not Yet.
+            Gurme lezzetleri.
             </p>
           </div>
         </Link>
