@@ -46,7 +46,7 @@ export default function Meyve() {
           setNoData(true);
         } else {
           const meyveListesi = response.data.HalFiyatListesi.filter(
-            (item) => item.MalTipAdi === "SEBZE"
+            (item) => item.MalTipAdi === "İTHAL.."
           ).map((meyve) => ({ ...meyve, Date: formattedDate })); // Tarih bilgisini meyve öğesine ekliyoruz
           setMeyveData(meyveListesi);
         }
@@ -67,7 +67,7 @@ export default function Meyve() {
           setFilteredPreviousMeyveData([]);
         } else {
           const meyveListesi = response.data.HalFiyatListesi.filter(
-            (item) => item.MalTipAdi === "SEBZE"
+            (item) => item.MalTipAdi === "İTHAL.."
           ).map((meyve) => ({ ...meyve, Date: formattedPreviousDate })); // Tarih bilgisini meyve öğesine ekliyoruz
           setFilteredPreviousMeyveData(meyveListesi);
         }
@@ -156,13 +156,13 @@ export default function Meyve() {
 
     // Create a new workbook and append the worksheet
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Sebze Fiyatları");
+    XLSX.utils.book_append_sheet(wb, ws, "İTHAL Fiyatları");
 
     // Write the workbook to a file with modified filename
     const filename = `Taze Piyasa - ${format(
       date,
       "yyyy-MM-dd"
-    )} - Sebze Fiyatları.xlsx`;
+    )} - İTHAL Fiyatları.xlsx`;
     XLSX.writeFile(wb, filename);
   };
 
@@ -182,7 +182,7 @@ export default function Meyve() {
           <div className="max-w-5xl mx-auto">
             <div className="flex items-center justify-between mb-6 p-4">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl hidden md:block">
-                Sebze
+                İthal
               </h1>
               {/* Popover - DateSelection */}
               <PopoverButton date={date} onSelect={setDate} />

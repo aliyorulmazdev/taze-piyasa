@@ -40,24 +40,24 @@ export default function Home() {
         </Link>
         <Link
           className="group bg-white rounded-lg shadow-lg overflow-hidden transition-all hover:scale-[1.02] hover:shadow-xl dark:bg-gray-950"
-          href="#"
+          href="/sebze"
         >
           <div className="aspect-square flex flex-col items-center justify-center p-8 space-y-4">
-            <CarrotIcon className="w-12 h-12 text-gray-900 group-hover:text-gray-700 dark:text-gray-50 dark:group-hover:text-gray-300" />
+          <CarrotIcon className="w-12 h-12 text-gray-900 group-hover:text-red-700 dark:text-gray-50 dark:group-hover:text-gray-300 hover:animate-spin" />
             <h2 className="text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-700 dark:text-gray-50 dark:group-hover:text-gray-300">
               Sebze
             </h2>
             <p className="text-gray-500 group-hover:text-gray-600 dark:text-gray-400 dark:group-hover:text-gray-300">
-              Not Yet.
+              Yeşilinden kırmızısına, hepsi taptaze..
             </p>
           </div>
         </Link>
         <Link
           className="group bg-white rounded-lg shadow-lg overflow-hidden transition-all hover:scale-[1.02] hover:shadow-xl dark:bg-gray-950"
-          href="#"
+          href="/ithal"
         >
           <div className="aspect-square flex flex-col items-center justify-center p-8 space-y-4">
-            <BoxIcon className="w-12 h-12 text-gray-900 group-hover:text-gray-700 dark:text-gray-50 dark:group-hover:text-gray-300" />
+          <BoxIcon className="w-12 h-12 text-gray-900 group-hover:text-red-700 dark:text-gray-50 dark:group-hover:text-gray-300 hover:animate-spin" />
             <h2 className="text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-700 dark:text-gray-50 dark:group-hover:text-gray-300">
               İthal
             </h2>

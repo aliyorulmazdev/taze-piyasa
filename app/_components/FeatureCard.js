@@ -3,11 +3,13 @@ import Link from "next/link";
 import { CardContent, Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function FeatureCard() {
   const [commitDate, setCommitDate] = useState("");
   const [commitMessage, setCommitMessage] = useState("");
   const [commitBy, setCommitBy] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchCommitData() {
@@ -19,11 +21,28 @@ export default function FeatureCard() {
       setCommitDate(commitInfo.committer.date.split("T")[0]);
       setCommitMessage(commitInfo.message);
       setCommitBy(commitInfo.author.name);
+      setLoading(false); // Set loading to false once data is fetched
     }
 
-    fetchCommitData();
+    setTimeout(() => {
+      fetchCommitData();
+    }, 1000); // Simulate a 1-second loading time
   }, []);
 
+  if (loading) {
+    return (
+      <div
+        className="bg-white dark:bg-gray-950 rounded-lg shadow-lg overflow-hidden transition-all p-4 flex flex-col gap-2"
+      >
+        <Skeleton className="w-full h-64 aspect-square object-cover rounded-lg" />
+        <Skeleton className="w-1/2 h-8 mt-3" />
+        <Skeleton className="w-3/4 h-6 mt-2" />
+        <Skeleton className="w-1/2 h-6 mt-2" />
+        <Skeleton className="w-full h-10 mt-2" />
+        <Skeleton className="w-full h-10 mt-2" />
+      </div>
+    );
+  }
   return (
     <Card className="w-full max-w-sm shadow-lg rounded-lg">
       <CardContent className="flex flex-col items-center gap-6 p-6">

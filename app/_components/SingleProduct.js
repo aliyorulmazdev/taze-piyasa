@@ -82,7 +82,7 @@ const SingleProduct = ({
       </div>
       <div className="text-gray-700 dark:text-gray-300 border-b border-gray-300 dark:border-gray-700 pb-2">
         <Label className="font-medium">Ortalama Ücret: ₺
-        {meyve.OrtalamaUcret}</Label>
+        {meyve.OrtalamaUcret}</Label> / <Label className='font-light'>{meyve.Birim}</Label>
       </div>
       <div className="flex">
         <ShareSheet meyve={meyve} date={date} handleCopyText={handleCopyText} />
