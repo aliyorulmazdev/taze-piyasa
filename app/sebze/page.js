@@ -148,7 +148,7 @@ export default function Meyve() {
   const handleExportToExcel = () => {
     // Filter out the fields 'HalTuru', 'MalTipId', and 'Gorsel', and prepare the data
     const exportData = filteredMeyveData.map(
-      ({ HalTuru, MalTipId, Gorsel, ...rest }) => rest
+      ({ HalTuru, MalTipId, Gorsel,tarih, ...rest }) => rest
     );
 
     // Create a new worksheet
